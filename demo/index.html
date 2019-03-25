@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+    <meta charset="utf-8" />
+    <title>DEMO</title>
+
+    <style>
+        h1{ 
+            color: blue;
+        }
+        .ta-c{
+            text-align: center;
+        }
+        .main{
+            display: table;
+            width: 100%;
+        }
+        .alice{
+            display: table-cell;
+            width: 32%;
+            margin-left:10px;
+        }        
+        .proxy{
+            display: table-cell;
+            width: 32%;
+            margin-left:5px;
+        }
+        .bob{
+            display: table-cell;
+            width: 32%;
+            margin-left:5px;
+        }
+        .brc{
+            border-radius: 25px;
+            border-color: blue;
+            background-color: #80808047;
+            height: 150px;
+        }
+        .btn-b{
+            background-color: #10a0cc;
+        }
+        .btn-r{
+            background-color: red;
+        }
+        .btn{
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .h-40{
+            height: 45px;
+        }
+        .h-70{
+            height: 70px;
+        }
+        .h-120{
+            height: 120px;
+        }
+        textarea{
+            width: 300px;
+        }
+        .ta-l{
+            text-align: left;
+        }
+        p{
+            margin-left: 60px;
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
+        .dropbtn {
+            cursor: pointer;
+        }
+        
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown a:hover {background-color: #ddd;}
+        
+        .show {display: block;}
+        .ml-15{
+            margin-left: 15px;
+        }
+        .ml-20{
+            margin-left: 20px;
+        }
+        .m-10{
+            margin-top: 10px;
+        }
+        .m-100{
+            margin-top: 100px;
+        }
+    </style>
+
+</head>
+<body class="">
+  
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+    </section>
+    <div class="main">
+        <!-- ALICE -->
+        <div class="alice brc ta-c">
+            <h3 class="ta-c">Alice</h3>
+            <button class="aliceKeyPair btn btn-b" >Generate Key Pair</button>
+            <div class="alice-key-pair">
+                <p class="ta-l">Alice Private Key<!--<input  class="button ml-15" id="apr_to_bytes" type="button" value="To Bytes" onclick="apr_to_byte_hex()"/>--></p>
+                <textarea id="alice-private-key" class="h-40"></textarea>
+                <p class="ta-l">Alice Public Key<!--<input  class="button ml-15" id="apu_to_bytes" type="button" value="To Bytes" onclick="apu_to_byte_hex()"/>--></p>
+                <textarea id="alice-public-key" class="h-70"></textarea>
+            </div>
+
+            <button class="aliceEncapsulation btn btn-b">Encapsulate</button> 
+            <div class="capsule">
+                <p class="ta-l">Alice Symmetric Key</p>
+                <textarea id="alice_symmetric-key" class="h-40"></textarea>
+            </div> 
+
+            <button class="rekeyAB btn btn-b">Generate ReEncryption Key</button>
+            <div class="">
+                <p class="ta-l">ReEncryption Key from Alice to Bob</p>
+                <textarea id="rk_AB" class="h-70"></textarea>
+            </div> 
+            <button class="originalAlice btn btn-b">Decapsulate Original</button>
+            <div class="">
+                <p class="ta-l">Alice Symmetric Key</p>
+                <textarea id="alice_original_key" class="h-40"></textarea>
+            </div> 
+        </div>
+
+        <!-- PROXY -->
+        <div class="proxy brc ta-c">
+            <h3 class="ta-c">Proxy</h3>
+  
+            <!-- RE ENCRYPT CAPSULE -->
+            <button class="reencryptedCapsuleAB btn btn-b">Re Encrypt Alice Capsule for Bob</button> 
+            <button class="reencryptedCapsuleBA btn btn-b m-10">Re Encrypt Bob Capsule for Alice</button> 
+
+            <!-- DECAPSULATE -->
+            <button class="decapsulateAlice btn btn-b m-100">Decapsulate Alice Capsule</button>
+            <div class="capsule">
+                <p class="ta-l">Symmetric Key</p>
+                <textarea id="symmetric-key-bob" class="h-40"></textarea>
+            </div> 
+            <button class="decapsulateBob btn btn-b m-10">Decapsulate Bob Capsule</button>
+            <div class="capsule">
+                <p class="ta-l">Symmetric Key</p>
+                <textarea id="symmetric-key-alice" class="h-40"></textarea>
+            </div> 
+
+        </div>
+
+        <!-- BOB -->
+        <div class="bob brc ta-c">
+            <h3 class="ta-c">Bob</h3>              
+            <button class="bobKeyPair btn btn-b">Generate Key Pair</button>
+            <div class="bob-key-pair">
+                <p class="ta-l">Bob Private Key<!--<input  class="button ml-15" id="bpr_to_bytes" type="button" value="To Bytes" onclick="bpr_to_byte_hex()"/>--></p>
+                <textarea id="bob-private-key" class="h-40"></textarea>
+                <p class="ta-l">Bob Public Key<!--<input  class="button ml-15" id="bpu_to_bytes" type="button" value="To Bytes" onclick="bpu_to_byte_hex()"/>--></p>
+                <textarea id="bob-public-key" class="h-70"></textarea>
+            </div> 
+            <button class="bobEncapsulation btn btn-b">Encapsulate</button> 
+            <div class="capsule">
+                <p class="ta-l">Bob Symmetric Key</p>
+                <textarea id="bob_symmetric-key" class="h-40"></textarea>
+            </div> 
+
+            <button class="rekeyBA btn btn-b">Generate ReEncryption Key</button>
+            <div class="">
+                <p class="ta-l">ReEncryption Key from Bob to Alice</p>
+                <textarea id="rk_BA" class="h-70"></textarea>
+            </div> 
+            <button class="originalBob btn btn-b">Decapsulate Original</button>
+            <div class="">
+                <p class="ta-l">Bob Symmetric Key</p>
+                <textarea id="bob_original_key" class="h-40"></textarea>
+            </div> 
+        </div>
+    </div>
+    <!--<button class="mybutton">Run Encapsulate-Decapsulate Test</button>-->
+
+    <script type="text/javascript" src="https://kmschain.com/wp-content/uploads/2018/11/proxy-minified.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+    <script>
+      var alice_private_key;
+      var alice_private_key;
+      var alice_capsule;
+      var bob_capsule;
+      var bob_private_key;
+      var bob_public_key;
+      var re_key_AB;
+      var re_key_BA;
+      var re_capsule_AB;
+      var re_capsule_BA;
+      function dropdown_show() {
+          document.getElementById("capsuleDropdown").classList.toggle("show");
+      }
+      function rk_dropdown_show() {
+          document.getElementById("rkDropdown").classList.toggle("show");
+      }
+      function dec_dropdown_show() {
+          document.getElementById("decDropdown").classList.toggle("show");
+      }
+      function apr_to_byte_hex(){
+          if (document.getElementById("apr_to_bytes").value == "To Bytes"){
+              document.getElementById("apr_to_bytes").value = "To Hex";
+              document.getElementById("alice-private-key").innerHTML = alice_private_key.to_bytes();
+          }else{
+              document.getElementById("apr_to_bytes").value = "To Bytes";
+              document.getElementById("alice-private-key").innerHTML = JSON.stringify(alice_private_key.prvKey);
+          }
+      }
+      function apu_to_byte_hex(){
+          if (document.getElementById("apu_to_bytes").value == "To Bytes"){
+              document.getElementById("apu_to_bytes").value = "To Hex";
+              document.getElementById("alice-public-key").innerHTML = alice_public_key.to_bytes();
+          }else{
+              document.getElementById("apu_to_bytes").value = "To Bytes";
+              document.getElementById("alice-public-key").innerHTML = JSON.stringify(alice_public_key.pubKey);
+          }
+      }
+      function bpr_to_byte_hex(){
+          if (document.getElementById("bpr_to_bytes").value == "To Bytes"){
+              document.getElementById("bpr_to_bytes").value = "To Hex";
+              document.getElementById("bob-private-key").innerHTML = bob_private_key.to_bytes();
+          }else{
+              document.getElementById("bpr_to_bytes").value = "To Bytes";
+              document.getElementById("bob-private-key").innerHTML = JSON.stringify(bob_private_key.prvKey);
+          }
+      }
+      function bpu_to_byte_hex(){
+          if (document.getElementById("bpu_to_bytes").value == "To Bytes"){
+              document.getElementById("bpu_to_bytes").value = "To Hex";
+              document.getElementById("bob-public-key").innerHTML = bob_public_key.to_bytes();
+          }else{
+              document.getElementById("bpu_to_bytes").value = "To Bytes";
+              document.getElementById("bob-public-key").innerHTML = JSON.stringify(bob_public_key.pubKey);
+          }
+      }
+      function rk_ab_to_byte_hex(){
+          if (document.getElementById("rk_ab_to_bytes").value == "To Bytes"){
+              document.getElementById("rk_ab_to_bytes").value = "To Hex";
+              document.getElementById("rk_AB").innerHTML = re_key_AB.to_bytes();
+          }else{
+              document.getElementById("rk_ab_to_bytes").value = "To Bytes";
+              document.getElementById("rk_AB").innerHTML = JSON.stringify(re_key_AB);
+          }
+      }
+      function rk_ba_to_byte_hex(){
+          if (document.getElementById("rk_ba_to_bytes").value == "To Bytes"){
+              document.getElementById("rk_ba_to_bytes").value = "To Hex";
+              document.getElementById("rk_BA").innerHTML = re_key_BA.to_bytes();
+          }else{
+              document.getElementById("rk_ba_to_bytes").value = "To Bytes";
+              document.getElementById("rk_BA").innerHTML = JSON.stringify(re_key_BA);
+          }
+      }
+      function to_hex(obj){
+          var str = obj.split('"');
+          return str[1] + str[3];
+      }
+      document.querySelector('.aliceKeyPair').addEventListener('click', function(){
+        var key_pair = Proxy.generateKeyPair();//call_test(); 
+        alice_private_key = key_pair.get_private_key();
+        alice_public_key = key_pair.get_public_key();
+        document.getElementById("alice-private-key").innerHTML = alice_private_key.prvKey;
+        document.getElementById("alice-public-key").innerHTML = to_hex(JSON.stringify(alice_public_key.pubKey));
+      });
+      document.querySelector('.bobKeyPair').addEventListener('click', function(){
+        var key_pair = Proxy.generateKeyPair(); 
+        bob_private_key = key_pair.get_private_key();
+        bob_public_key = key_pair.get_public_key();
+        document.getElementById("bob-private-key").innerHTML = bob_private_key.prvKey;
+        document.getElementById("bob-public-key").innerHTML = to_hex(JSON.stringify(bob_public_key.pubKey));
+       });
+       document.querySelector('.aliceEncapsulation').addEventListener('click', function(){
+           if (typeof alice_public_key == "undefined"){
+               alert("Alice has not keys yet! Please generate key pair for Alice");
+           }else{
+               var capsule = Proxy.encapsulate(alice_public_key);
+               alice_capsule = capsule.capsule;
+               document.getElementById("alice_symmetric-key").innerHTML = JSON.stringify(capsule.capsule);
+               var text = "Encrypt me Antonio!";
+               var textBytes = aesjs.utils.utf8.toBytes(text);
+               var aesCtr = new aesjs.ModeOfOperation.ctr(aesjs.utils.utf8.toBytes(capsule.symmetric_key.substring(0,32)), new aesjs.Counter(5));
+               var encryptedBytes = aesCtr.encrypt(textBytes);
+               var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+               console.log("ENC HEX - ", encryptedHex);
+
+               var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+
+               // The counter mode of operation maintains internal state, so to
+               // decrypt a new instance must be instantiated.
+               var aesCtr = new aesjs.ModeOfOperation.ctr(aesjs.utils.utf8.toBytes(capsule.symmetric_key.substring(0,32)), new aesjs.Counter(5));
+               var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+               
+               // Convert our bytes back into text
+               var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+               console.log("DEC TXT - ", decryptedText);
+           }
+       });
+       document.querySelector('.bobEncapsulation').addEventListener('click', function(){
+           if (typeof bob_public_key == "undefined"){
+               alert("Bob has not keys yet! Please generate key pair for Bob");
+           }else{
+               var capsule = Proxy.encapsulate(bob_public_key);
+               bob_capsule = capsule.capsule;
+               document.getElementById("bob_symmetric-key").innerHTML = capsule.symmetric_key;
+           }
+       });
+       document.querySelector('.rekeyAB').addEventListener('click', function(){
+           if (typeof bob_public_key == "undefined"){
+               alert("Bob has not keys yet! Please generate key pair for Bob");
+           }else if (typeof alice_private_key == "undefined"){
+               alert("Alice has not keys yet! Please generate key pair for Alice");
+           }else{
+               var rekey_AB = Proxy.generate_re_encryption_key(alice_private_key, bob_public_key);
+               re_key_AB = rekey_AB;
+               document.getElementById("rk_AB").innerHTML = JSON.stringify(rekey_AB);//.to_bytes();
+           }
+       });
+       document.querySelector('.rekeyBA').addEventListener('click', function(){
+           if (typeof alice_public_key == "undefined"){
+               alert("Alice has not keys yet! Please generate key pair for Alice");
+           }else if (typeof bob_private_key == "undefined"){
+               alert("Bob has not keys yet! Please generate key pair for Bob");
+           } else {
+               var rekey_BA = Proxy.generate_re_encryption_key(bob_private_key, alice_public_key);
+               re_key_BA = rekey_BA;
+               document.getElementById("rk_BA").innerHTML = JSON.stringify(rekey_BA);//.to_bytes();
+           }
+       });
+
+       document.querySelector('.reencryptedCapsuleAB').addEventListener('click', function(){
+           if (typeof re_key_AB == "undefined"){
+               alert("There is not Re Encryption key from Alice to Bob.");
+           }else if (typeof alice_capsule == "undefined"){
+               alert("Alice has no capsule.");
+           } else {
+               var re_enc_capsule = Proxy.re_encrypt_capsule(alice_capsule, re_key_AB);
+               re_capsule_AB = re_enc_capsule;
+               alert("Successfully Re Encrypted.")
+           }
+       });
+ 
+       document.querySelector('.reencryptedCapsuleBA').addEventListener('click', function(){
+           if (typeof re_key_BA == "undefined"){
+               alert("There is not Re Encryption key from Bob to Alice.");
+           }else if (typeof bob_capsule == "undefined"){
+               alert("Bob has no capsule.");
+           } else {
+               var re_enc_capsule = Proxy.re_encrypt_capsule(bob_capsule, re_key_BA);
+               re_capsule_BA = re_enc_capsule;
+               alert("Successfully Re Encrypted.")
+           }
+       }); 
+
+       document.querySelector('.originalAlice').addEventListener('click', function(){
+           if(typeof alice_private_key == "undefined") {
+               alert("Alice has no keys.");
+           }else if (typeof alice_capsule == "undefined"){
+               alert("Alice has no Capsule.");
+           }else{
+               var sym_key = Proxy.decapsulate_original(alice_capsule, alice_private_key);
+               document.getElementById("alice_original_key").innerHTML = sym_key;
+           }
+       });
+       document.querySelector('.decapsulateAlice').addEventListener('click', function(){
+           if(typeof re_key_AB == "undefined") {
+               alert("There is not Re Encryption key from Alice to Bob.");
+           }else if (typeof re_capsule_AB == "undefined"){
+               alert("First ReEncrypt Alice capsule for Bob.");
+           }else{
+               var sym_key = Proxy.decapsulate_re_encrypted(re_capsule_AB, bob_private_key);
+               alert(sym_key);
+               document.getElementById("symmetric-key-bob").innerHTML = sym_key;
+           }
+       });
+       function dec_bob_original(){
+           var sym_key = Proxy.decapsulate_original(bob_capsule, bob_private_key);
+           document.getElementById("symmetric-key").innerHTML = sym_key;
+
+       }
+       document.querySelector('.originalBob').addEventListener('click', function(){
+           if(typeof bob_private_key == "undefined") {
+               alert("Bob has no keys.");
+           }else if (typeof bob_capsule == "undefined"){
+               alert("Bob has no Capsule.");
+           }else{
+               var sym_key = Proxy.decapsulate_original(bob_capsule, bob_private_key);
+               document.getElementById("bob_original_key").innerHTML = sym_key;
+           }
+       });
+       document.querySelector('.decapsulateBob').addEventListener('click', function(){
+           if(typeof re_key_BA == "undefined") {
+               alert("There is not Re Encryption key from Alice to Bob.");
+           }else if (typeof re_capsule_BA == "undefined"){
+               alert("First ReEncrypt Bob capsule for Alice.");
+           }else{
+               var sym_key = Proxy.decapsulate_re_encrypted(re_capsule_BA, alice_private_key);
+               alert(sym_key);
+               document.getElementById("symmetric-key-alice").innerHTML = sym_key;
+           }
+
+       });
+
+
+       window.onclick = function(event) {
+           if (!event.target.matches('.dropbtn')) {
+
+             var dropdowns = document.getElementsByClassName("dropdown-content");
+             var i;
+             for (i = 0; i < dropdowns.length; i++) {
+               var openDropdown = dropdowns[i];
+               if (openDropdown.classList.contains('show')) {
+                 openDropdown.classList.remove('show');
+               }
+             }
+           }
+       }
+    </script>
+</body>
+</html>
+

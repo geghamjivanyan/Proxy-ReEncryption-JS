@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+  <meta charset="utf-8" />
+  <title>JS SDK</title>
+</head>
+<body class="">
+    <button class="mybutton">Generate keys for Bob</button>
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+    </section>
+	<div id="page-wrapper">
+
+		<div>
+			Select a private key: 
+			<input type="file" id="prvfileInput">
+		</div>
+		<pre id="prvfileDisplayArea"><pre>
+
+	</div>
+	<div id="page-wrapper">
+
+		<div>
+			Select a capsule: 
+			<input type="file" id="capsulefileInput">
+		</div>
+		<pre id="capsulefileDisplayArea"><pre>
+
+	</div>
+
+  <!--<script type="text/javascript" src="../proxy-minified.js"></script>-->
+  <script type="text/javascript" src="../bn.js"></script>
+  <script type="text/javascript" src="../elliptic.js"></script>
+  <script type="text/javascript" src="../sha256.js"></script>
+  <script type="text/javascript" src="../utils.js"></script>
+  <script type="text/javascript" src="../curve.js"></script>
+  <script type="text/javascript" src="../config.js"></script>
+  <script type="text/javascript" src="../private-key.js"></script>
+  <script type="text/javascript" src="../public-key.js"></script>
+  <script type="text/javascript" src="../re-encryption-key.js"></script>
+  <script type="text/javascript" src="../capsule.js"></script>
+  <script type="text/javascript" src="../proxy.js"></script>
+  <script type="text/javascript" src="../scalar.js"></script>
+  <script type="text/javascript" src="../key-pair.js"></script>
+  <script type="text/javascript" src="../group-element.js"></script>
+  <script type="text/javascript" src="decapsulate_re_encrypted.js"></script>
+  <script>
+    document.querySelector('.mybutton').addEventListener('click', function(){
+        generate_bob_keys();
+    });
+  </script>
+</body>
+</html>
+

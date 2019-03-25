@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+  <meta charset="utf-8" />
+  <title>JS SDK</title>
+</head>
+<body class="">
+  <button class="mybutton">Run Test</button>
+
+  <script type="text/javascript" src="proxy-minified.js"></script>
+  <!--<script type="text/javascript" src="bn.js"></script>
+  <script type="text/javascript" src="elliptic.js"></script>
+  <script type="text/javascript" src="sha256.js"></script>
+  <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="curve.js"></script>
+  <script type="text/javascript" src="config.js"></script>
+  <script type="text/javascript" src="private-key.js"></script>
+  <script type="text/javascript" src="public-key.js"></script>
+  <script type="text/javascript" src="re-encryption-key.js"></script>
+  <script type="text/javascript" src="capsule.js"></script>
+  <script type="text/javascript" src="proxy.js"></script>
+  <script type="text/javascript" src="scalar.js"></script>
+  <script type="text/javascript" src="key-pair.js"></script>
+  <script type="text/javascript" src="group-element.js"></script>-->
+  <script type="text/javascript" src="tests/test_utils.js"></script>
+  <script type="text/javascript" src="tests/test_math.js"></script>
+  <script type="text/javascript" src="tests/test_keys.js"></script>
+  <script type="text/javascript" src="tests/test_capsule.js"></script>
+  <script type="text/javascript" src="tests/run.js"></script>
+  <script>
+    document.querySelector('.mybutton').addEventListener('click', function(){
+        call_test();
+    });
+  </script>
+</body>
+</html>
+
